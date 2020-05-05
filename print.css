@@ -1,0 +1,236 @@
+body {
+    font-family: arial;
+    background-color: #fff;
+}
+
+
+.logo-container {
+    margin: 0 auto;
+    max-width: 1300px;
+padding: 60px 30px 40px 30px;
+}
+
+.logo {
+    max-width: 400px;
+}
+
+.container {
+    margin: 0 auto;
+    font-family: arial;
+    max-width: 1200px;
+    background-color: white;
+    padding: 20px 50px 90px 50px;
+}
+
+.button {
+    cursor: pointer;
+    padding: 5px 10px;
+    background: #dcdada;
+    display: flex;
+    border-radius: 3px;
+}
+
+    .button:hover {
+        background: #c5c5c5;
+    }
+
+.form {
+    display: flex;
+    margin: 20px;
+    margin-left: 5px;
+    align-items: center;
+}
+
+select.form__select {
+    margin-right: 10px;
+        height: 30px;
+}
+
+/* Channel Style */
+.channel__metric {
+display: inherit;
+    justify-content: space-between;
+    width: 50px !important;
+    margin-right: 30px;
+    padding-right: 20px;
+}
+
+input.channel__metric-input {
+    width: 100px;
+    height: 25px;
+    border-radius: 4px;
+    color: black;
+    border: 1px solid #dbdbdb;
+}
+
+
+.channel__media-value {
+    display: flex;
+}
+
+    .channel__media-value-title {
+        margin-right: 5px;
+    }
+
+.channel__actions {
+    display: flex;
+}
+
+.table {
+    margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+    border-bottom: 1px solid;
+}
+
+    .table th {
+        padding: 0 10px 10px;
+        text-align: left;
+        border-bottom: 1px solid #c9ced0;
+    }
+
+    .table tr {
+        border-bottom: 1px solid #c9ced0;
+    }
+
+    .table tr:nth-child(even) {
+        background-color: #f2f4f8;
+    }
+
+    .table tr:last-child {
+        border-bottom: 0;
+    }
+
+    .table td {
+        padding: 10px;
+        color: #3d464b;
+        font-size: 13px;
+        white-space: normal;
+    }
+
+.column {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+
+.row .results__body {
+    display: block;
+    color: black;
+}
+
+.row .results__body .results__media-container {
+display: inline-block;
+    width: auto;
+    border: 2px solid #cecece;
+    border-radius: 8px;
+    padding: 10px 20px;
+    width: 25%;
+}
+
+
+
+
+.results__container {
+    color: white;
+        background-color: rgba(132, 132, 132, 0.07);
+}
+
+    .results__total-container {
+            background-color: rgba(62, 108, 151, 1);
+        align-items: center;
+        padding: 20px 0px;
+    }
+
+        .results__total-title {
+               font-size: 25px;
+                margin: 20px;
+                width: 30%;
+        }
+
+        .results__total-value {
+                font-size: 35px;
+                font-weight: bold;
+                text-align: left;
+                padding-right: 15px;
+        }
+
+    .results__media-container {
+        justify-content: space-between;
+        margin: 5px;
+    }
+
+        .results__media-title {
+            font-size: 13px;
+        }
+
+        .results__media-value {
+            font-size: 30px;
+        }
+
+
+.row.results__body > .results__media-container:nth-child(12) {
+    display: block;
+    padding: 15px;
+    background-color: #a5a5a5;
+    width: 25%;
+    color: black;
+    font-size: 110%;
+}
+
+.row.results__body > .results__media-container:nth-child(12) .results__media-value {font-size: 40px;}
+
+.row.results__body > .results__media-container:nth-child(12) .results__media-title {font-size: 15px;}
+
+
+
+tr.channel__row > td:nth-child(3) {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+tr.channel__row > td:nth-child(1) {
+    font-style: 16px;
+}
+
+
+.add {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+}
+
+.remove {
+    background-color: #860000;
+    color: white;
+    font-weight: bold;
+}
+
+
+.by-channel {
+        font-size: 15px;
+    margin-left: 15px;
+    margin-bottom: 0px;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+div.container-table > table > thead > tr > th:nth-child(4){
+    display: none !Important;
+}
+
+tr.channel__row > td:nth-child(4) {
+    display: none !Important;
+}
+
+h3, .form, .header, .export-btn {display: none;}
+
+.container-table {padding-right: 30px;}
+
+

@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    <meta charset="utf-8">
+    <title>AGM - Media Value Calculator</title>
+
+    <link rel="stylesheet" media="screen" href="style.css" />
+    <link rel="stylesheet" media="print" href="print.css" />
+
+  </head>
+
+	<body>
+    <script src="Channel.js"></script>
+    <script src="ChannelTemplateManager.js"></script>
+    <script src="ChannelManager.js"></script>
+    <script src="Table.js"></script>
+    <script src="queries.js"></script>
+
+<div class="logo-container">
+<img class="logo" src="logo.png">  
+</div>
+<div class="container">
+<div class="header">
+<h1>Media Value Calculator</h1>
+Enter the post's likes, comments & shares to estimate the media value. 
+</div>
+<br><br>
+
+<div class="container-table">
+    <table class="table channels">
+      <thead>
+        <tr>
+          <th>Channel</th>
+          <th>Metrics</th>
+          <th>Media value</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody class="table__body">
+      </tbody>
+    </table>
+
+
+    <h3>Select a channel to add:</h3>
+    <div class="form">
+      <select class="form__select">
+      </select>
+
+      <div class="button add form__button" onclick="add_row()">
+        +
+      </div>
+    </div>
+</div>
+    <div class="grid results">
+      <div class="column">
+        <div class="row">
+          <div class="column top-part">
+            <h2>Results</h2>
+            <button class="export-btn" onclick="window.print()">Export Report (PDF)</button>
+          </div>
+        </div>
+        <div class="row results__container">
+          <div class="column">
+            <div class="row results__total-container">
+              <div class="column results__total-title">Total Media Value:</div>
+              <div class="column results__total-value results__channel-total_media_value">0</div>
+            </div>
+
+            <div class="row results__body">
+              <div class="column results__total-title by-channel">By channel:</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+		<script>
+
+      // this is an example of the json descriptor of channels and metrics
+      // The media_value_func is the function that operates on the fileds of
+      // the metrics declared in the same channel.
+      let json = {
+        channels:
+        [
+          {
+            name: "facebook",
+            label: "Facebook",
+            metrics: [
+              {
+                name: "likes",
+                label: "Post Likes"
+              },
+              {
+                name: "comments",
+                label: "Post Comments"
+              },
+              {
+                name: "shares",
+                label: "Post Shares"
+              },
+              {
+                name: "clicks",
+                label: "Post Clicks"
+              },
+              {
+                name: "views",
+                label: "Video Post Views"
+              },
+              {
+                name: "followers",
+                label: "Follower Count"
+              }
+
+            ],
+            media_value_func: "{clicks}*3.20 + {likes}*0.21 + {comments}*3 + {shares}*1.89 + {views}*0.15 + {followers}/1000*4.49"
+          },
+          {
+            name: "twitter",
+            label: "Twitter",
+            metrics: [
+              {
+                name: "clicks",
+                label: "Clicks"
+              },
+              {
+                name: "likes",
+                label: "Tweet Likes"
+              },
+              {
+                name: "comments",
+                label: "Comments"
+              },
+              {
+                name: "shares",
+                label: "ReTweets"
+              },
+              {
+                name: "views",
+                label: "Video Tweet Views"
+              },
+              {
+                name: "followers",
+                label: "Follower Count"
+              }
+
+            ],
+            media_value_func: "{clicks}*1.58 + {likes}*0.6 + {comments}*2.87 + {shares}*1.88 + {views}*0.09 + {followers}/1000*2.28"
+          },
+          {
+            name: "instagram",
+            label: "Instagram",
+            metrics: [
+              {
+                name: "likes",
+                label: "Post Likes"
+              },
+              {
+                name: "comments",
+                label: "Post Comments"
+              },
+              {
+                name: "views",
+                label: "Video Post Views"
+              },
+              {
+                name: "followers",
+                label: "Follower Count"
+              }
+            ],
+            media_value_func: "{likes}*0.10 + {comments}*4.49 + {views}*0.11 + {followers}/1000*5.88"
+          },
+          {
+            name: "stories",
+            label: "Instagram Stories",
+            metrics: [
+              {
+                name: "clicks",
+                label: "Clicks"
+              },
+              {
+                name: "views",
+                label: "Video Post Views"
+              },
+              {
+                name: "followers",
+                label: "Follower Count"
+              }
+            ],
+            media_value_func: "{clicks}*3.53 + {views}*0.20 + {followers}/1000*8.15"
+          },
+          {
+            name: "pinterest",
+            label: "Pinterest",
+            metrics: [
+              {
+                name: "clicks",
+                label: "Post Clicks"
+              },
+              {
+                name: "likes",
+                label: "Post Likes"
+              },
+              {
+                name: "comments",
+                label: "Post Comments"
+              },
+              {
+                name: "shares",
+                label: "Post Shares"
+              },
+              {
+                name: "followers",
+                label: "Follower Count"
+              }
+            ],
+            media_value_func: "{clicks}*1.02 + {likes}*0.03 + {comments}*1.12 + {shares}*0.17 + {followers}/1000*3.67"
+          },
+          {
+            name: "youtube",
+            label: "YouTube",
+            metrics: [
+              {
+                name: "views",
+                label: "Video Views"
+              },
+              {
+                name: "likes",
+                label: "Likes"
+              },
+              {
+                name: "comments",
+                label: "Comments"
+              },
+              {
+                name: "shares",
+                label: "Shares"
+              },
+              {
+                name: "followers",
+                label: "Subscriber Count"
+              }
+            ],
+            media_value_func: "{likes}*0.98 + {comments}*8.78 + {shares}*4.00 + {views}*0.12 + {followers}/1000*8.07"
+          },
+          {
+            name: "snapchat",
+            label: "Snapchat",
+            metrics: [
+              {
+                name: "views",
+                label: "Video Views"
+              },
+              {
+                name: "clicks",
+                label: "Clicks"
+              },
+              {
+                name: "followers",
+                label: "Subscriber Count"
+              }
+            ],
+            media_value_func: "{clicks}*1.32 + {views}*0.05 + {followers}/1000*8.23"
+          },
+          {
+            name: "linkedin",
+            label: "Linkedin",
+            metrics: [
+              {
+                name: "comments",
+                label: "Comments"
+              },
+              {
+                name: "followers",
+                label: "Follower Count"
+              }
+            ],
+            media_value_func: "{comments}*5.35 + {followers}/1000*14.43"
+          },
+          {
+            name: "website",
+            label: "Articles / Blogs",
+            metrics: [
+              {
+                name: "comments",
+                label: "Comments"
+              },
+              {
+                name: "followers",
+                label: "UMVS"
+              }
+            ],
+            media_value_func: "{comments}*0.06 + {followers}/1000*3.50"
+          },
+          {
+            name: "podcast",
+            label: "Podcast",
+            metrics: [
+              {
+                name: "listeners",
+                label: "Listeners"
+              },
+              {
+                name: "interview_length",
+                label: "Interview Length (sec)",
+              },
+              {
+                name: "avg_rate",
+                label: "Avg (CPM) Rate"
+              }
+            ],
+            media_value_func: "{listeners}*{interview_length}*({avg_rate}/1000)/{interview_length}"
+          },
+          {
+            name: "radio",
+            label: "Radio Interview",
+            metrics: [
+              {
+                name: "listeners",
+                label: "Listeners"
+              },
+              {
+                name: "interview_length",
+                label: "Interview Length (sec)",
+              },
+              {
+                name: "avg_rate",
+                label: "Avg Weekly Ad Rate"
+              },
+              {
+                name: "radio_week",
+                label: "# Weeks Replay"
+              }
+            ],
+            media_value_func: "{listeners}*{interview_length}*{avg_rate}*{radio_week}"
+          },
+          {
+            name: "magazine_cover",
+            label: "Magazine Cover",
+            metrics: [
+              {
+                name: "circulation",
+                label: "Circulation"
+              },
+              {
+                name: "cover_rate",
+                label: "Cover Rate",
+              },
+              {
+                name: "store_dist",
+                label: "Store Distribution"
+              },
+              {
+                name: "transactions",
+                label: "Transactions"
+              }              
+            ],
+            media_value_func: "{cover_rate}/({store_dist}*{transactions}+{circulation})*{circulation}"
+          },
+          {
+            name: "magazine_interview",
+            label: "Magazine Interview",
+            metrics: [
+              {
+                name: "circulation",
+                label: "Circulation"
+              },
+              {
+                name: "pages",
+                label: "Interview Pages",
+              },
+              {
+                name: "readers",
+                label: "Readers Per Mag."
+              },
+              {
+                name: "rate_page",
+                label: "Rate Per Page",
+              }
+            ],
+            media_value_func: "{circulation}*{pages}*{readers}*{rate_page}"
+          },
+          {
+            name: "product_placement",
+            label: "Film/TV Product Placement",
+            metrics: [
+              {
+                name: "views",
+                label: "Viewers"
+              },
+              {
+                name: "placement_seconds",
+                label: "Placement Seconds",
+              },
+              {
+                name: "placement_rate",
+                label: "Placement Rate"
+              }
+            ],
+            media_value_func: "{views}*{pages}*{placement_seconds}*{placement_rate}"
+          }
+        ]
+      };
+
+      // ######## globals ################################
+      let template_manager  = new ChannelTemplateManager(json); // this will store the json definition of a channel and metrics
+      let channel_manager   = new ChannelManager();             // this will store created instances of channels when the add button is clicked
+
+      let table_element = document.querySelector(".channels");
+      var table = new Table(table_element); // This handles the interaction with the data table.
+
+
+
+      // #################################################
+      // #################################################
+      // ###### populate html select #####################
+
+      // This will fill the select to use all channel types found in the json. Eg: facebook, twitter, instagram
+      let channel_select = document.querySelector('.form__select');
+      let channel_types = template_manager.get_template_name_label_array();
+
+      for(let i=0; i < channel_types.length; i++)
+      {
+        let option = document.createElement("option");
+
+        option.text   = channel_types[i].label;
+        option.value  = channel_types[i].name;
+
+        channel_select.add(option);
+      }
+
+      // #################################################
+      // ############ populate results ###################
+
+      function add_result_row(name, label) {
+        let results_body = document.querySelector('.results__body');
+
+        let result_column = document.createElement('div');
+        result_column.className = `column results__media-container`;
+
+        let channel_name_row = document.createElement('div');
+        channel_name_row.className = `row results__media-title`;
+        channel_name_row.innerHTML = label;
+        result_column.appendChild(channel_name_row)
+
+        let channel_result_row = document.createElement('div');
+        channel_result_row.className = `row results__media-value results__channel-${name}`;
+        channel_result_row.innerHTML = 0;
+        result_column.appendChild(channel_result_row)
+
+        results_body.appendChild(result_column)
+      }
+
+      for (let i = 0; i < channel_types.length; i++)
+      {
+        add_result_row(channel_types[i].name, channel_types[i].label)
+      }
+
+
+      for (let i = 0; i < queries.length; i++)
+      {
+        let q = queries[i]();
+
+        if (q.name !== 'total_media_value') {
+          add_result_row(q.name, q.label);
+        }
+      }
+
+
+      // #################################################
+      // ################### Data operations #############
+
+
+      function on_input_changed(input) {
+        let channel_id = input.dataset.channel_id;
+        let channel = channel_manager.get_channel_by_id(channel_id);
+
+        channel.set_metric_value(input.dataset.metric_name, Number(input.value));
+        let media_value = channel.compute_media_value();
+
+        let media_value_element = document.querySelector(`.channel__media-value-value.channel__${channel_id}`);
+        media_value_element.innerHTML = Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(media_value);
+
+        update_results();
+      }
+
+
+
+      // Called every time an input is modified or when a row is removed.
+      // This will add together all values from
+      function update_results() {
+        let total = 0;
+        for (let i = 0; i < channel_types.length; i++) {
+          let result_element = document.querySelector(`.results__channel-${channel_types[i].name}`);
+
+          let result_value = channel_manager.total_media_values_for_channel_name(channel_types[i].name)
+          total += result_value;
+          result_element.innerHTML = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(result_value);
+        }
+        for (let i = 0; i < queries.length; i++) {
+          let q = queries[i]();
+          console.log(q.name)
+          let result_element = document.querySelector(`.results__channel-${q.name}`);
+          result_element.innerHTML = q.value;
+        }
+
+      }
+
+      // #################################################
+      // ############ Table operations ###################
+
+      // Called when clicks on Add row button
+      function add_row() {
+        let select = document.querySelector('.form__select');
+
+        let selected_channel =  select.options[select.selectedIndex].value;
+
+        let channel_template = template_manager.get_channel_template(selected_channel);
+        let channel = channel_manager.create_channel_from_template(channel_template);
+
+        // global variable table defined above
+        table.add_row(channel);
+      }
+
+      // called when the remove button is clicked
+      function on_remove_row(button)
+      {
+        let channel_id = Number(button.dataset.channel_id);
+
+        table.remove_row(channel_id);
+        channel_manager.remove_channel_by_id(channel_id);
+
+        update_results();
+      }
+
+		</script>
+
+</div>
+
+	</body>
+</html>
