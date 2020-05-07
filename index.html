@@ -6,23 +6,26 @@
 
     <link rel="stylesheet" media="screen" href="style.css" />
     <link rel="stylesheet" media="print" href="print.css" />
+    <link rel="stylesheet" href="libs/chart.css" />
 
+    <script src="./libs/Chart.min.js"></script>
   </head>
 
 	<body>
     <script src="Channel.js"></script>
     <script src="ChannelTemplateManager.js"></script>
     <script src="ChannelManager.js"></script>
+    <script src="ChartsManager.js"></script>
     <script src="Table.js"></script>
     <script src="queries.js"></script>
 
 <div class="logo-container">
-<img class="logo" src="logo.png">  
+<img class="logo" src="logo.png">
 </div>
 <div class="container">
 <div class="header">
 <h1>Media Value Calculator</h1>
-Enter the post's likes, comments & shares to estimate the media value. 
+Enter the post's likes, comments & shares to estimate the media value.
 </div>
 <br><br>
 
@@ -74,9 +77,27 @@ Enter the post's likes, comments & shares to estimate the media value.
       </div>
     </div>
 
+    <canvas id="canvas_bar" style="display: block; max-height: 50%;" class="chartjs-render-monitor">
+    </canvas>
 
+    <canvas id="canvas_horizontal" style="display: block; max-height: 50%;" class="chartjs-render-monitor">
+    </canvas>
+</div>
 
 		<script>
+
+      let colors = [
+        "#e68231",//"Articles / Blogs",
+        "#3175b5",//"Facebook",
+        "#8a2152",//"Instagram",
+        "#a83f9a",//"Instagram Stories",
+        "#3277b0",//"Linkedin",
+        "#bb3330",//"Pinterest",
+        "#3d4059",//"Radio Interview",
+        "#fffb54",//"Snapchat",
+        "#4492d5",//"Twitter",
+        "#eb3323",//"Youtube"
+      ]
 
       // this is an example of the json descriptor of channels and metrics
       // The media_value_func is the function that operates on the fileds of
@@ -354,7 +375,7 @@ Enter the post's likes, comments & shares to estimate the media value.
               {
                 name: "transactions",
                 label: "Transactions"
-              }              
+              }
             ],
             media_value_func: "{cover_rate}/({store_dist}*{transactions}+{circulation})*{circulation}"
           },
@@ -406,6 +427,7 @@ Enter the post's likes, comments & shares to estimate the media value.
       // ######## globals ################################
       let template_manager  = new ChannelTemplateManager(json); // this will store the json definition of a channel and metrics
       let channel_manager   = new ChannelManager();             // this will store created instances of channels when the add button is clicked
+      let charts_manager   = new ChartsManager();
 
       let table_element = document.querySelector(".channels");
       var table = new Table(table_element); // This handles the interaction with the data table.
@@ -505,6 +527,7 @@ Enter the post's likes, comments & shares to estimate the media value.
           result_element.innerHTML = q.value;
         }
 
+        update_charts();
       }
 
       // #################################################
@@ -534,9 +557,50 @@ Enter the post's likes, comments & shares to estimate the media value.
         update_results();
       }
 
-		</script>
+      // Load chart library
+      charts_manager.load_library();
 
-</div>
+      // Update charts
+      function update_charts() {
+        charts_manager.destroy_charts();
+
+        let chart_title = 'Media Value, by Channel';
+        let chart_type = 'bar' // 'bar' or 'horizontalBar'
+        let chart_canvas = document.getElementById('canvas_bar')
+        let chart_data = {
+          labels: [],
+          values: [],
+          colors: []
+        }
+
+        for (let i = 0; i < channel_manager.channels.length; i++) {
+          chart_data.labels.push(channel_manager.channels[i].label);
+          chart_data.values.push(channel_manager.channels[i].compute_media_value());
+          chart_data.colors.push(channel_manager.channels[i].color);
+        }
+
+        charts_manager.add_chart(chart_title, chart_type, chart_canvas, chart_data);
+
+        // Second Chart
+        chart_title = 'Total reach, by Channel';
+        chart_type = 'horizontalBar';
+        chart_canvas = document.getElementById('canvas_horizontal');
+        chart_data = {
+          labels: [],
+          values: [],
+          colors: []
+        }
+
+         for (let i = 0; i < channel_manager.channels.length; i++) {
+          chart_data.labels.push(channel_manager.channels[i].label);
+          chart_data.values.push(channel_manager.channels[i].compute_media_value());
+          chart_data.colors.push(channel_manager.channels[i].color);
+        }
+
+        charts_manager.add_chart(chart_title, chart_type, chart_canvas, chart_data);
+      }
+
+		</script>
 
 	</body>
 </html>
