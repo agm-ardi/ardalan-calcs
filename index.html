@@ -569,14 +569,14 @@ Enter the post's likes, comments & shares to estimate the media value.
         let chart_canvas = document.getElementById('canvas_bar')
         let chart_data = {
           labels: [],
-          values: [],
-          colors: []
+          values: []
         }
 
-        for (let i = 0; i < channel_manager.channels.length; i++) {
-          chart_data.labels.push(channel_manager.channels[i].label);
-          chart_data.values.push(channel_manager.channels[i].compute_media_value());
-          chart_data.colors.push(channel_manager.channels[i].color);
+        for (let i = 0; i < channel_types.length; i++) {
+          let result_value = channel_manager.total_media_values_for_channel_name(channel_types[i].name)
+
+          chart_data.labels.push(channel_types[i].label);
+          chart_data.values.push(result_value);
         }
 
         charts_manager.add_chart(chart_title, chart_type, chart_canvas, chart_data);
@@ -587,14 +587,14 @@ Enter the post's likes, comments & shares to estimate the media value.
         chart_canvas = document.getElementById('canvas_horizontal');
         chart_data = {
           labels: [],
-          values: [],
-          colors: []
+          values: []
         }
 
-         for (let i = 0; i < channel_manager.channels.length; i++) {
-          chart_data.labels.push(channel_manager.channels[i].label);
-          chart_data.values.push(channel_manager.channels[i].compute_media_value());
-          chart_data.colors.push(channel_manager.channels[i].color);
+        for (let i = 0; i < channel_types.length; i++) {
+          let result_value = channel_manager.total_media_values_for_channel_name(channel_types[i].name)
+
+          chart_data.labels.push(channel_types[i].label);
+          chart_data.values.push(result_value);
         }
 
         charts_manager.add_chart(chart_title, chart_type, chart_canvas, chart_data);
