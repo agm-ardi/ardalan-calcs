@@ -51,7 +51,7 @@ select.form__select {
 .channel__metric {display: inline-block;justify-content: space-between;width: auto !important;margin-right: 10px;padding-right: 10px;}
 
 input.channel__metric-input {
-    width: 100px;
+    width: 80px;
     height: 25px;
     border-radius: 4px;
     color: black;
@@ -233,6 +233,13 @@ tr.channel__row > td:nth-child(1) {
 
 
 
+tr.channel__row > td > div.channel__metric:nth-child(1) input.channel__metric-input {
+    width: 150px;
+}
+
+tr.channel__row > td > div.channel__metric:nth-child(1) .channel__metric-label {
+    font-style: normal;
+}
 
 
 /*
