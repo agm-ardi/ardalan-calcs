@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-	<head>
+  <head>
     <meta charset="utf-8">
     <title>AGM - Media Value Calculator</title>
 
@@ -11,7 +11,7 @@
     <script src="./libs/Chart.min.js"></script>
   </head>
 
-	<body>
+  <body>
     <script src="Channel.js"></script>
     <script src="ChannelTemplateManager.js"></script>
     <script src="ChannelManager.js"></script>
@@ -84,7 +84,7 @@ Enter the post's likes, comments & shares to estimate the media value.
     </canvas>
 </div>
 
-		<script>
+    <script>
 
       let colors = [
         "#e68231",//"Articles / Blogs",
@@ -110,12 +110,12 @@ Enter the post's likes, comments & shares to estimate the media value.
             label: "Facebook",
             metrics: [
               {
-                name: "post_url",
-                label: "*Post Name or Link"
+                name: "url",
+                label: "URL or Name"
               },
               {
-                name: "comments",
-                label: "Post Comments"
+                name: "likes",
+                label: "Post Likes"
               },
               {
                 name: "comments",
@@ -146,8 +146,8 @@ Enter the post's likes, comments & shares to estimate the media value.
             label: "Twitter",
             metrics: [
               {
-                name: "post_url",
-                label: "*Post Name or Link"
+                name: "url",
+                label: "URL or Name"
               },
               {
                 name: "clicks",
@@ -182,8 +182,8 @@ Enter the post's likes, comments & shares to estimate the media value.
             label: "Instagram",
             metrics: [
               {
-                name: "post_url",
-                label: "*Post Name or Link"
+                name: "url",
+                label: "URL or Name"
               },
               {
                 name: "likes",
@@ -209,8 +209,8 @@ Enter the post's likes, comments & shares to estimate the media value.
             label: "Instagram Stories",
             metrics: [
               {
-                name: "post_url",
-                label: "*Post Name or Link"
+                name: "url",
+                label: "URL or Name"
               },
               {
                 name: "clicks",
@@ -232,8 +232,8 @@ Enter the post's likes, comments & shares to estimate the media value.
             label: "Pinterest",
             metrics: [
               {
-                name: "post_url",
-                label: "*Post Name or Link"
+                name: "url",
+                label: "URL or Name"
               },
               {
                 name: "clicks",
@@ -263,8 +263,8 @@ Enter the post's likes, comments & shares to estimate the media value.
             label: "YouTube",
             metrics: [
               {
-                name: "post_url",
-                label: "*Post Name or Link"
+                name: "url",
+                label: "URL or Name"
               },
               {
                 name: "views",
@@ -293,9 +293,9 @@ Enter the post's likes, comments & shares to estimate the media value.
             name: "snapchat",
             label: "Snapchat",
             metrics: [
-             {
-                name: "post_url",
-                label: "*Post Name or Link"
+              {
+                name: "url",
+                label: "URL or Name"
               },
               {
                 name: "views",
@@ -317,8 +317,8 @@ Enter the post's likes, comments & shares to estimate the media value.
             label: "Linkedin",
             metrics: [
               {
-                name: "post_url",
-                label: "*Post Name or Link"
+                name: "url",
+                label: "URL or Name"
               },
               {
                 name: "comments",
@@ -336,8 +336,8 @@ Enter the post's likes, comments & shares to estimate the media value.
             label: "Articles / Blogs",
             metrics: [
               {
-                name: "post_url",
-                label: "*Post Name or Link"
+                name: "url",
+                label: "URL or Name"
               },
               {
                 name: "comments",
@@ -355,8 +355,8 @@ Enter the post's likes, comments & shares to estimate the media value.
             label: "Podcast",
             metrics: [
               {
-                name: "post_url",
-                label: "*Post Name or Link"
+                name: "url",
+                label: "URL or Name"
               },
               {
                 name: "listeners",
@@ -378,8 +378,8 @@ Enter the post's likes, comments & shares to estimate the media value.
             label: "Radio Interview",
             metrics: [
               {
-                name: "post_url",
-                label: "*Post Name or Link"
+                name: "url",
+                label: "URL or Name"
               },
               {
                 name: "listeners",
@@ -405,8 +405,8 @@ Enter the post's likes, comments & shares to estimate the media value.
             label: "Magazine Cover",
             metrics: [
               {
-                name: "post_url",
-                label: "*Post Name or Link"
+                name: "url",
+                label: "URL or Name"
               },
               {
                 name: "circulation",
@@ -432,8 +432,8 @@ Enter the post's likes, comments & shares to estimate the media value.
             label: "Magazine Interview",
             metrics: [
               {
-                name: "post_url",
-                label: "*Post Name or Link"
+                name: "url",
+                label: "URL or Name"
               },
               {
                 name: "circulation",
@@ -459,8 +459,8 @@ Enter the post's likes, comments & shares to estimate the media value.
             label: "Film/TV Product Placement",
             metrics: [
               {
-                name: "post_url",
-                label: "*Post Name or Link"
+                name: "url",
+                label: "URL or Name"
               },
               {
                 name: "views",
@@ -656,7 +656,7 @@ Enter the post's likes, comments & shares to estimate the media value.
         charts_manager.add_chart(chart_title, chart_type, chart_canvas, chart_data);
       }
 
-		</script>
+    </script>
 
-	</body>
+  </body>
 </html>
