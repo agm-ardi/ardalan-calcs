@@ -68,7 +68,7 @@ Channel.prototype.get_metric_value = function(metric_name)
 }
 Channel.prototype.get_total_reach = function()
 {
-  let followers = this.get_metric_by_name(metric_name);
+  let followers = this.get_metric_by_name('followers');
   if(followers)
   {
     return followers.value;
