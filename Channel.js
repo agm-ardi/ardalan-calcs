@@ -11,6 +11,7 @@ function Channel(id, name, label, metrics, media_value_func)
   this.name     = name;
   this.label    = label;
   this.metrics  = metrics;
+  this.url      = "";
 
   this.media_value_func = media_value_func;
 }
@@ -64,6 +65,15 @@ Channel.prototype.set_metric_value = function(metric_name, value)
 Channel.prototype.get_metric_value = function(metric_name)
 {
   return this.get_metric_by_name(metric_name).value;
+}
+Channel.prototype.get_total_reach = function()
+{
+  let followers = this.get_metric_by_name(metric_name);
+  if(followers)
+  {
+    return followers.value;
+  }
+  return 0;
 }
 
 String.prototype.supplant = function (o) {

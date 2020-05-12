@@ -34,6 +34,7 @@ Enter the post's likes, comments & shares to estimate the media value.
       <thead>
         <tr>
           <th>Channel</th>
+          <th>Post name or URL</th>
           <th>Metrics</th>
           <th>Media value</th>
           <th>Actions</th>
@@ -60,6 +61,8 @@ Enter the post's likes, comments & shares to estimate the media value.
           <div class="column top-part">
             <h2>Results</h2>
             <button class="export-btn" onclick="window.print()">Export Report (PDF)</button>
+            <button class="export-btn" onclick="export_to_csv()">Export Report (CSV)</button>
+
           </div>
         </div>
         <div class="row results__container">
@@ -108,11 +111,8 @@ Enter the post's likes, comments & shares to estimate the media value.
           {
             name: "facebook",
             label: "Facebook",
+            url: "",
             metrics: [
-              {
-                name: "url",
-                label: "URL or Name"
-              },
               {
                 name: "likes",
                 label: "Post Likes"
@@ -144,11 +144,8 @@ Enter the post's likes, comments & shares to estimate the media value.
           {
             name: "twitter",
             label: "Twitter",
+            url: "",
             metrics: [
-              {
-                name: "url",
-                label: "URL or Name"
-              },
               {
                 name: "clicks",
                 label: "Clicks"
@@ -180,11 +177,8 @@ Enter the post's likes, comments & shares to estimate the media value.
           {
             name: "instagram",
             label: "Instagram",
+            url: "",
             metrics: [
-              {
-                name: "url",
-                label: "URL or Name"
-              },
               {
                 name: "likes",
                 label: "Post Likes"
@@ -207,11 +201,8 @@ Enter the post's likes, comments & shares to estimate the media value.
           {
             name: "stories",
             label: "Instagram Stories",
+            url: "",
             metrics: [
-              {
-                name: "url",
-                label: "URL or Name"
-              },
               {
                 name: "clicks",
                 label: "Clicks"
@@ -230,11 +221,8 @@ Enter the post's likes, comments & shares to estimate the media value.
           {
             name: "pinterest",
             label: "Pinterest",
+            url: "",
             metrics: [
-              {
-                name: "url",
-                label: "URL or Name"
-              },
               {
                 name: "clicks",
                 label: "Post Clicks"
@@ -261,11 +249,8 @@ Enter the post's likes, comments & shares to estimate the media value.
           {
             name: "youtube",
             label: "YouTube",
+            url: "",
             metrics: [
-              {
-                name: "url",
-                label: "URL or Name"
-              },
               {
                 name: "views",
                 label: "Video Views"
@@ -292,11 +277,8 @@ Enter the post's likes, comments & shares to estimate the media value.
           {
             name: "snapchat",
             label: "Snapchat",
+            url: "",
             metrics: [
-              {
-                name: "url",
-                label: "URL or Name"
-              },
               {
                 name: "views",
                 label: "Video Views"
@@ -315,11 +297,8 @@ Enter the post's likes, comments & shares to estimate the media value.
           {
             name: "linkedin",
             label: "Linkedin",
+            url: "",
             metrics: [
-              {
-                name: "url",
-                label: "URL or Name"
-              },
               {
                 name: "comments",
                 label: "Comments"
@@ -334,11 +313,8 @@ Enter the post's likes, comments & shares to estimate the media value.
           {
             name: "website",
             label: "Articles / Blogs",
+            url: "",
             metrics: [
-              {
-                name: "url",
-                label: "URL or Name"
-              },
               {
                 name: "comments",
                 label: "Comments"
@@ -353,11 +329,8 @@ Enter the post's likes, comments & shares to estimate the media value.
           {
             name: "podcast",
             label: "Podcast",
+            url: "",
             metrics: [
-              {
-                name: "url",
-                label: "URL or Name"
-              },
               {
                 name: "listeners",
                 label: "Listeners"
@@ -376,11 +349,8 @@ Enter the post's likes, comments & shares to estimate the media value.
           {
             name: "radio",
             label: "Radio Interview",
+            url: "",
             metrics: [
-              {
-                name: "url",
-                label: "URL or Name"
-              },
               {
                 name: "listeners",
                 label: "Listeners"
@@ -403,11 +373,8 @@ Enter the post's likes, comments & shares to estimate the media value.
           {
             name: "magazine_cover",
             label: "Magazine Cover",
+            url: "",
             metrics: [
-              {
-                name: "url",
-                label: "URL or Name"
-              },
               {
                 name: "circulation",
                 label: "Circulation"
@@ -430,11 +397,8 @@ Enter the post's likes, comments & shares to estimate the media value.
           {
             name: "magazine_interview",
             label: "Magazine Interview",
+            url: "",
             metrics: [
-              {
-                name: "url",
-                label: "URL or Name"
-              },
               {
                 name: "circulation",
                 label: "Circulation"
@@ -457,11 +421,8 @@ Enter the post's likes, comments & shares to estimate the media value.
           {
             name: "product_placement",
             label: "Film/TV Product Placement",
+            url: "",
             metrics: [
-              {
-                name: "url",
-                label: "URL or Name"
-              },
               {
                 name: "views",
                 label: "Viewers"
@@ -561,6 +522,14 @@ Enter the post's likes, comments & shares to estimate the media value.
         media_value_element.innerHTML = Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(media_value);
 
         update_results();
+
+
+      }
+      function on_channel_url_changed(input)
+      {
+        let channel_id = input.dataset.channel_id;
+        let channel = channel_manager.get_channel_by_id(channel_id);
+        channel.url = input.value;
       }
 
 
@@ -654,6 +623,50 @@ Enter the post's likes, comments & shares to estimate the media value.
         }
 
         charts_manager.add_chart(chart_title, chart_type, chart_canvas, chart_data);
+      }
+
+
+      // #################################################
+      // ############ EXPORT #############################
+
+      function export_to_csv()
+      {
+        let output = "";
+        output += "Channel,";
+        output += "Post Name or URL,";
+        output += "Media value,";
+        output += "Total Reach,";
+        output += "\n";
+
+        let channels = channel_manager.channels;
+        for(let i=0; i< channels.length; i++)
+        {
+          output += channels[i].label                 +",";
+          output += channels[i].url                   +",";
+          output += channels[i].compute_media_value() +",";
+          output += channels[i].get_total_reach()     +",";
+          output += "\n";
+        }
+        output = output.substring(0, output.length - 2); //remove last ',' and \n
+        download(output, "export", 'csv');
+      }
+
+      function download(data, filename, type) {
+          var file = new Blob([data], {type: type});
+          if (window.navigator.msSaveOrOpenBlob) // IE10+
+              window.navigator.msSaveOrOpenBlob(file, filename);
+          else { // Others
+              var a = document.createElement("a"),
+                      url = URL.createObjectURL(file);
+              a.href = url;
+              a.download = filename;
+              document.body.appendChild(a);
+              a.click();
+              setTimeout(function() {
+                  document.body.removeChild(a);
+                  window.URL.revokeObjectURL(url);  
+              }, 0); 
+          }
       }
 
     </script>
