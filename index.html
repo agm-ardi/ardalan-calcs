@@ -594,11 +594,12 @@ Enter the post's likes, comments & shares to estimate the media value.
         let chart_canvas = document.getElementById('canvas_bar')
         let chart_data = {
           labels: [],
-          values: []
+          values: [],
+          money_format: true
         }
 
         for (let i = 0; i < channel_types.length; i++) {
-          let result_value = channel_manager.total_media_values_for_channel_name(channel_types[i].name)
+          let result_value = channel_manager.total_media_values_for_channel_name(channel_types[i].name);
 
           chart_data.labels.push(channel_types[i].label);
           chart_data.values.push(result_value);
@@ -612,11 +613,14 @@ Enter the post's likes, comments & shares to estimate the media value.
         chart_canvas = document.getElementById('canvas_horizontal');
         chart_data = {
           labels: [],
-          values: []
+          values: [],
+          money_format: false
         }
 
         for (let i = 0; i < channel_types.length; i++) {
-          let result_value = channel_manager.total_media_values_for_channel_name(channel_types[i].name)
+          let result_value = channel_manager.total_media_values_for_channel_name(channel_types[i].name);
+
+          result_value = Math.floor(result_value);
 
           chart_data.labels.push(channel_types[i].label);
           chart_data.values.push(result_value);
@@ -648,7 +652,7 @@ Enter the post's likes, comments & shares to estimate the media value.
           output += "\n";
         }
         output = output.substring(0, output.length - 2); //remove last ',' and \n
-        download(output, "export", 'csv');
+        download(output, "export", 'text/csv;charset=utf-8;');
       }
 
       function download(data, filename, type) {
@@ -664,8 +668,8 @@ Enter the post's likes, comments & shares to estimate the media value.
               a.click();
               setTimeout(function() {
                   document.body.removeChild(a);
-                  window.URL.revokeObjectURL(url);  
-              }, 0); 
+                  window.URL.revokeObjectURL(url);
+              }, 0);
           }
       }
 

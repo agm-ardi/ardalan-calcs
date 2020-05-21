@@ -18,7 +18,8 @@ ChartsManager.prototype.add_chart = function (title, bar_type, canvas, chart_dat
       },
       borderColor: "#222222",
       borderWidth: 2,
-      data: chart_data.values
+      data: chart_data.values,
+      money_format: chart_data.money_format
     }]
   };
 
@@ -49,6 +50,7 @@ ChartsManager.prototype.add_chart = function (title, bar_type, canvas, chart_dat
       },
       title: {
         display: true,
+        fontSize: 30,
         text: title
       }
     }
@@ -56,7 +58,6 @@ ChartsManager.prototype.add_chart = function (title, bar_type, canvas, chart_dat
 }
 
 ChartsManager.prototype.load_library = function () {
-  // transform a number into a money value
   Chart.defaults.global.legend.display = false;
 
   //add label above of the bar
@@ -88,7 +89,8 @@ ChartsManager.prototype.load_library = function () {
               yPos = model.y;
             }
 
-            ctx.fillText(Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(dataset.data[i]), xPos, yPos);
+            let text = dataset.money_format ? Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(dataset.data[i]) : dataset.data[i];
+            ctx.fillText(text, xPos, yPos);
           }
         });
       }
