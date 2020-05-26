@@ -618,7 +618,7 @@ Enter the post's likes, comments & shares to estimate the media value.
         }
 
         for (let i = 0; i < channel_types.length; i++) {
-          let result_value = channel_manager.total_media_values_for_channel_name(channel_types[i].name);
+          let result_value = channel_manager.total_reach_for_channel_name(channel_types[i].name);
 
           result_value = Math.floor(result_value);
 

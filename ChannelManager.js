@@ -73,6 +73,15 @@ ChannelManager.prototype.total_media_values_for_channel_name = function (channel
   return sum;
 }
 
+ChannelManager.prototype.total_reach_for_channel_name = function (channel_name) {
+  let sum = 0;
+  for (let i = 0; i < this.channels.length; i++) {
+    if (this.channels[i].name === channel_name)
+      sum += this.channels[i].get_total_reach();
+  }
+  return sum;
+}
+
 ChannelManager.prototype.get_channel_by_id = function (channel_id) {
   for (let i = 0; i < this.channels.length; i++) {
     if (this.channels[i].id === Number(channel_id))
