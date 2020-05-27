@@ -40,7 +40,7 @@ function combined_reach()
   return {
     name: "total_reach",
     label: 'Total Reach:',
-    value: followers_fb+followers_tw+followers_ig+followers_igs+followers_pn+followers_yt+followers_sn+followers_ld+followers_web.toFixed(0)
+    value: followers_fb+followers_tw+followers_ig+followers_igs+followers_pn+followers_yt+followers_sn+followers_ld+followers_web
    
   }
 }
