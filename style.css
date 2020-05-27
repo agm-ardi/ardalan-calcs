@@ -50,6 +50,9 @@ select.form__select {
 /* Channel Style */
 .channel__metric {display: inline-block;justify-content: space-between;width: auto !important;margin-right: 10px;padding-right: 10px;}
 
+
+body > div.container > div.container-table > table > tbody > tr > td:nth-child(2) > input {width: 100%;margin-top:14px;}
+
 input.channel__metric-input {
     width: 80px;
     height: 25px;
@@ -61,6 +64,7 @@ input.channel__metric-input {
 
 .channel__media-value {
     display: flex;
+    font-weight: bold;
 }
 
 .channel__media-value-title {
@@ -193,6 +197,7 @@ tr.channel__row > td:nth-child(3) {
 tr.channel__row > td:nth-child(1) {
     font-size: 14px !important;
     font-weight: 600;
+    padding: 20px 10px 10px 10px;
 }
 
 
@@ -233,13 +238,7 @@ tr.channel__row > td:nth-child(1) {
 
 
 
-tr.channel__row > td > div.channel__metric:nth-child(1) input.channel__metric-input {
-    width: 150px;
-}
 
-tr.channel__row > td > div.channel__metric:nth-child(1) .channel__metric-label {
-    font-style: normal;
-}
 
 
 /*
