@@ -49,7 +49,13 @@ Table.prototype.add_media_value = function (channel, cell)
 
   let media_value_value = document.createElement('div');
   media_value_value.className = `channel__media-value-value channel__${channel.id}`;
-  media_value_value.innerHTML = channel.compute_media_value();
+  media_value_value.innerHTML = Intl.NumberFormat(
+    'en-US', 
+    { 
+      style: 'currency', 
+      currency: 'USD' 
+    }
+  ).format(channel.compute_media_value());
 
   media_value_container.appendChild(media_value_value);
 
@@ -77,6 +83,7 @@ Table.prototype.add_url = function(channel, cell)
   let url_input = document.createElement('input');
   url_input.className = 'channel__metric-input';
   url_input.dataset.channel_id = channel.id;
+  url_input.value = channel.url;
 
   url_input.setAttribute('type', 'text');
   url_input.setAttribute('onchange', 'on_channel_url_changed(this)');
