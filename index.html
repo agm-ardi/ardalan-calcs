@@ -707,6 +707,7 @@ Enter the post's likes, comments &amp; shares to estimate the media value.
           const channel = channel_manager.create_channel_from_template(template);
           table.add_row(channel);
         }
+        update_results();
       };
       reader.readAsText(input.files[0]);
     }

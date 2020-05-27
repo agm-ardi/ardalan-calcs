@@ -107,7 +107,7 @@ Table.prototype.add_row = function(channel)
   let actions_cell      = channel_row.insertCell(4);
 
   channel_cell.innerHTML  = channel.label;
-  url_cell.innerHTML      = channel.url;
+  // url_cell.innerHTML      = channel.url;
 
   this.add_url(channel, url_cell);
   this.add_metrics(channel, metrics_cell);
