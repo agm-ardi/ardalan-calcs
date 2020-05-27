@@ -238,9 +238,28 @@ tr.channel__row > td:nth-child(1) {
 .top-part {display: inline-block !important;}
 .top-part h2 {max-width: 500px;float:left;}
 
+.project__loader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-bottom: 10px;
+}
 
+input.project__loader-input {
+    display: none;
+}
 
-
+.project__loader-btn{
+    background-color: #36843a;
+    padding: 10px 15px;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 0px;
+    margin-right: 10px;
+    display: flex;
+}
 
 
 /*

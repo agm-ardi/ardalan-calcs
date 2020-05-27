@@ -55,12 +55,20 @@ Enter the post's likes, comments &amp; shares to estimate the media value.
         +
       </div>
     </div>
+
+    <div class="project__loader-content">
+      <input class="project__loader-input" type="file" accept="application/json" onchange="load_project()" />
+      <div class="project__loader-btn" onclick="open_file_dialog()">
+        Import Project
+      </div>
+    </div>
 </div>
     <div class="grid results">
       <div class="column">
         <div class="row">
           <div class="column top-part">
             <h2>Results</h2>
+            <button class="export-btn" onclick="export_to_json()">Export Project (JSON)</button>
             <button class="export-btn" onclick="window.print()">Export Report (PDF)</button>
             <button class="export-btn" onclick="export_to_csv()">Export Report (CSV)</button>
 
@@ -634,6 +642,12 @@ Enter the post's likes, comments &amp; shares to estimate the media value.
       // #################################################
       // ############ EXPORT #############################
 
+      function export_to_json()
+      {
+        const output = JSON.stringify(channel_manager.channels);
+        download(output, "project", "application/json");
+      }
+
       function export_to_csv()
       {
         let output = "";
@@ -674,6 +688,23 @@ Enter the post's likes, comments &amp; shares to estimate the media value.
           }
       }
 
+    function open_file_dialog()
+    {
+      document.querySelector(".project__loader-input").click();
+    }
+
+    function load_project()
+    {
+      const input = document.querySelector(".project__loader-input");
+      if (!input || input.files.length === 0) {
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        channel_manager.channels = JSON.parse(event.target.result);
+      };
+      reader.readAsText(input.files[0]);
+    }
     </script>
 
   </body>
