@@ -27,7 +27,9 @@ Table.prototype.add_metrics = function (channel, cell)
     metric_input.setAttribute('onchange', 'on_input_changed(this)')
     metric_input.setAttribute('onkeyup', 'on_input_changed(this)')
 
-    //metric_input.value = metrics[i].value;
+    if (metrics[i].value) {
+      metric_input.value = metrics[i].value;
+    }
     metric_container.appendChild(metric_input);
 
     cell.appendChild(metric_container);

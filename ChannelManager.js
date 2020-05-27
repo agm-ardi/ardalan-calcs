@@ -17,8 +17,9 @@ ChannelManager.prototype.create_metrics_from_template = function (metrics_templa
   {
     let name  = metrics_template[i].name;
     let label = metrics_template[i].label;
+    let value = metrics_template[i].value;
 
-    metrics.push(new Metric(name, label));
+    metrics.push(new Metric(name, label, value));
   }
   return metrics;
 }
@@ -29,9 +30,10 @@ ChannelManager.prototype.create_channel_from_template = function (channel_templa
   let name              = channel_template.name;
   let label             = channel_template.label;
   let media_value_func  = channel_template.media_value_func;
+  let url               = channel_template.url;
   let metrics           = this.create_metrics_from_template(channel_template.metrics);
 
-  let new_channel = new Channel(id, name, label, metrics, media_value_func);
+  let new_channel = new Channel(id, name, label, metrics, media_value_func, url);
   this.channels.push(new_channel);
   return new_channel;
 }

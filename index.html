@@ -701,7 +701,12 @@ Enter the post's likes, comments &amp; shares to estimate the media value.
       }
       const reader = new FileReader();
       reader.onload = function(event) {
-        channel_manager.channels = JSON.parse(event.target.result);
+        const channel_templates = JSON.parse(event.target.result);
+        for (let i = 0; i < channel_templates.length; i++) {
+          const template = channel_templates[i];
+          const channel = channel_manager.create_channel_from_template(template);
+          table.add_row(channel);
+        }
       };
       reader.readAsText(input.files[0]);
     }

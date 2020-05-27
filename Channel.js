@@ -1,17 +1,17 @@
-function Metric (name, label)
+function Metric (name, label, value)
 {
   this.name = name;
   this.label = label;
-  this.value = 0;
+  this.value = value ? value : 0;
 }
 
-function Channel(id, name, label, metrics, media_value_func)
+function Channel(id, name, label, metrics, media_value_func, url)
 {
   this.id       = id;
   this.name     = name;
   this.label    = label;
   this.metrics  = metrics;
-  this.url      = "";
+  this.url      = url ? url : "";
 
   this.media_value_func = media_value_func;
 }
