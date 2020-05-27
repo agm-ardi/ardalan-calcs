@@ -224,13 +224,15 @@ tr.channel__row > td:nth-child(1) {
 
 .export-btn {
     background-color: #36843a;
-    padding: 15px 25px;
+    padding: 10px 15px;
     color: white;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 14px;
     border-radius: 5px;
     max-width: 400px;
-    float:right;
+    float: right;
+    border: 0px;
+    margin-right: 10px;
 }
 
 .top-part {display: inline-block !important;}
