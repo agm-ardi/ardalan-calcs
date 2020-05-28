@@ -238,18 +238,18 @@ tr.channel__row > td:nth-child(1) {
 .top-part {display: inline-block !important;}
 .top-part h2 {max-width: 500px;float:left;}
 
-.project__loader-content {
+.campaign__loader-content {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     margin-bottom: 10px;
 }
 
-input.project__loader-input {
+input.campaign__loader-input {
     display: none;
 }
 
-.project__loader-btn{
+.campaing__loader-btn{
     background-color: #36843a;
     padding: 10px 15px;
     color: white;
@@ -261,6 +261,16 @@ input.project__loader-input {
     display: flex;
 }
 
+.export-campaign-name {
+    width: 80px;
+    height: 25px;
+    border-radius: 4px;
+    color: black;
+    border: 1px solid #dbdbdb;
+    min-width: 150px;
+    float: right;
+    margin: 0 10px 0 0;
+}
 
 /*
 

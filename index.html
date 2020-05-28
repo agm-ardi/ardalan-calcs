@@ -56,10 +56,10 @@ Enter the post's likes, comments &amp; shares to estimate the media value.
       </div>
     </div>
 
-    <div class="project__loader-content">
-      <input class="project__loader-input" type="file" accept="application/json" onchange="load_project()" />
-      <div class="project__loader-btn" onclick="open_file_dialog()">
-        Import Project
+    <div class="campaign__loader-content">
+      <input class="campaign__loader-input" type="file" accept="application/json" onchange="load_campaign()" />
+      <div class="campaing__loader-btn" onclick="open_file_dialog()">
+        Import Campaign
       </div>
     </div>
 </div>
@@ -68,10 +68,10 @@ Enter the post's likes, comments &amp; shares to estimate the media value.
         <div class="row">
           <div class="column top-part">
             <h2>Results</h2>
-            <button class="export-btn" onclick="export_to_json()">Export Project (JSON)</button>
+            <button class="export-btn" onclick="export_to_json()">Export Campaign (JSON)</button>
             <button class="export-btn" onclick="window.print()">Export Report (PDF)</button>
             <button class="export-btn" onclick="export_to_csv()">Export Report (CSV)</button>
-
+            <input class="export-campaign-name" type="text" placeholder="Campaign name" />
           </div>
         </div>
         <div class="row results__container">
@@ -644,15 +644,37 @@ Enter the post's likes, comments &amp; shares to estimate the media value.
 
       function export_to_json()
       {
-        const campaign_name = prompt("Please insert a campaign name.");
-        if (!campaign_name) {
+        const filename = get_export_filename();
+        if (!filename) return;
+
+        const campaign = {
+          name: get_campaign_name(),
+          channels: channel_manager.channels 
+        }
+        const output = JSON.stringify(campaign);
+        download(output, filename, "application/json");
+      }
+
+      function get_campaign_name()
+      {
+        const input = document.querySelector(".export-campaign-name");
+
+        return input ? input.value : undefined;
+      }
+
+      function get_export_filename()
+      {
+        const campaign_name = get_campaign_name();
+        const campaing_name_is_blank = Boolean(
+          campaign_name.match(/^\s+$/ig)
+        );
+        if (!campaign_name || campaing_name_is_blank) {
           alert("A campaign name must be provided to export as JSON.");
           return;
         }
-        const today = new Date();
-        const filename = `allied_mvc_${campaign_name}_${get_date_string()}`;
-        const output = JSON.stringify(channel_manager.channels);
-        download(output, filename, "application/json");
+        const date_string = get_date_string();
+
+        return `allied_mvc_${campaign_name}_${date_string}`;
       }
 
       function get_date_string()
@@ -667,6 +689,9 @@ Enter the post's likes, comments &amp; shares to estimate the media value.
 
       function export_to_csv()
       {
+        const filename = get_export_filename();
+        if (!filename) return;
+
         let output = "";
         output += "Channel,";
         output += "Post Name or URL,";
@@ -684,7 +709,7 @@ Enter the post's likes, comments &amp; shares to estimate the media value.
           output += "\n";
         }
         output = output.substring(0, output.length - 2); //remove last ',' and \n
-        download(output, "export", 'text/csv;charset=utf-8;');
+        download(output, filename, 'text/csv;charset=utf-8;');
       }
 
       function download(data, filename, type) {
@@ -707,21 +732,28 @@ Enter the post's likes, comments &amp; shares to estimate the media value.
 
     function open_file_dialog()
     {
-      document.querySelector(".project__loader-input").click();
+      document.querySelector(".campaign__loader-input").click();
     }
 
-    function load_project()
+    function load_campaign()
     {
-      const input = document.querySelector(".project__loader-input");
+      const input = document.querySelector(".campaign__loader-input");
       if (!input || input.files.length === 0) {
         return;
       }
       const reader = new FileReader();
       reader.onload = function(event) {
-        const channel_templates = JSON.parse(event.target.result);
-        for (let i = 0; i < channel_templates.length; i++) {
-          const template = channel_templates[i];
-          const channel = channel_manager.create_channel_from_template(template);
+        const campaign = JSON.parse(event.target.result);
+        const campaign_name_input = document.querySelector(
+          '.export-campaign-name'
+        );
+        campaign_name_input.value = campaign.name;
+
+        for (let i = 0; i < campaign.channels.length; i++) {
+          const template = campaign.channels[i];
+          const channel = channel_manager.create_channel_from_template(
+            template
+          );
           table.add_row(channel);
         }
         update_results();
