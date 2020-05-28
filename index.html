@@ -644,8 +644,25 @@ Enter the post's likes, comments &amp; shares to estimate the media value.
 
       function export_to_json()
       {
+        const campaign_name = prompt("Please insert a campaign name.");
+        if (!campaign_name) {
+          alert("A campaign name must be provided to export as JSON.");
+          return;
+        }
+        const today = new Date();
+        const filename = `allied_mvc_${campaign_name}_${get_date_string()}`;
         const output = JSON.stringify(channel_manager.channels);
-        download(output, "project", "application/json");
+        download(output, filename, "application/json");
+      }
+
+      function get_date_string()
+      {
+        const today = new Date();
+        let date_string = `${today.getMonth() + 1}-`;
+        date_string += `${today.getDate()}-`;
+        date_string += `${today.getFullYear().toString().substr(-2)}`;
+
+        return date_string;
       }
 
       function export_to_csv()
