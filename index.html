@@ -692,12 +692,12 @@ Enter the post's likes, comments &amp; shares to estimate the media value.
           campaign_name.match(/^\s+$/ig)
         );
         if (!campaign_name || campaing_name_is_blank) {
-          alert("A campaign name must be provided to export as JSON.");
+          alert("Enter a campaign or project name to export and save.");
           return;
         }
         const date_string = get_date_string();
 
-        return `allied_mvc_${campaign_name}_${date_string}`;
+        return `agm_mediavalue_${campaign_name}_${date_string}`;
       }
 
       function get_date_string()
