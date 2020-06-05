@@ -56,7 +56,7 @@ display: inherit;
 }
 
 input.channel__metric-input {
-    width: 100px;
+    width: 60px;
     height: 25px;
     border-radius: 4px;
     color: black;
@@ -66,11 +66,14 @@ input.channel__metric-input {
 
 .channel__media-value {
     display: flex;
+    font-weight: bold;
+    color: black;
+    font-size: 16px;    
 }
 
-    .channel__media-value-title {
-        margin-right: 5px;
-    }
+.channel__media-value-title {
+   margin-right: 5px;
+}
 
 .channel__actions {
     display: flex;
@@ -94,7 +97,7 @@ input.channel__metric-input {
     }
 
     .table tr:nth-child(even) {
-        background-color: #f2f4f8;
+        background-color: #ffffff;
     }
 
     .table tr:last-child {
@@ -180,9 +183,10 @@ display: inline-block;
     display: block;
     padding: 15px;
     background-color: #a5a5a5;
+    color: white !important;
     width: 25%;
     color: black;
-    font-size: 110%;
+    font-size: 120%;
 }
 
 .row.results__body > .results__media-container:nth-child(16) .results__media-value {font-size: 40px;}
@@ -239,8 +243,19 @@ tr.channel__row > td:nth-child(4) {
 }
 */
 
-h3, .form, .header, .export-btn {display: none;}
+h3, .form, .header, .export-btn, .top-part, .campaign__loader-content, tr.channel__row> td:nth-child(5), table > thead > tr > th:nth-child(5) {display: none !important;}
 
 .container-table {padding-right: 30px;}
 
 
+input.channel__metric-input {border: 0px !important;}
+
+
+body > div.container > div.container-table > table > tbody > tr > td:nth-child(2) > input {min-width: 200px;}
+
+
+#canvas_horizontal, #canvas_bar {
+    width: 900px  !important;
+    height: 450px !important;
+    margin: 0 auto;
+}
