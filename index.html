@@ -668,10 +668,13 @@ Enter the post's likes, comments &amp; shares to estimate the media value.
         }
 
         // Add media_value_result to channels to export
+        // Add reach_result to channels to export
         for (let i = 0; i < campaign.channels.length; i++) {
-          let result_value = channel_manager.total_media_values_for_channel_name(campaign.channels[i].name);
+          let media_value_result = campaign.channels[i].compute_media_value();
+          let reach_result = campaign.channels[i].get_metric_value('followers');
 
-          campaign.channels[i].media_value_result = parseFloat(result_value.toFixed(2));
+          campaign.channels[i].media_value_result = parseFloat(media_value_result.toFixed(2));
+          campaign.channels[i].reach_result = parseFloat(reach_result.toFixed(2));
         }
 
         const output = JSON.stringify(campaign);
