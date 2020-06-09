@@ -356,7 +356,7 @@ Enter the post's likes, comments &amp; shares to estimate the media value.
             url: "",
             metrics: [
               {
-                name: "listeners",
+                name: "followers",
                 label: "Listeners"
               },
               {
@@ -368,7 +368,7 @@ Enter the post's likes, comments &amp; shares to estimate the media value.
                 label: "Avg (CPM) Rate"
               }
             ],
-            media_value_func: "{listeners}*{interview_length}*({avg_rate}/1000)/{interview_length}"
+            media_value_func: "{followers}*{interview_length}*({avg_rate}/1000)/{interview_length}"
           },
           {
             name: "radio",
@@ -376,7 +376,7 @@ Enter the post's likes, comments &amp; shares to estimate the media value.
             url: "",
             metrics: [
               {
-                name: "listeners",
+                name: "followers",
                 label: "Listeners"
               },
               {
@@ -392,7 +392,7 @@ Enter the post's likes, comments &amp; shares to estimate the media value.
                 label: "# Weeks Replay"
               }
             ],
-            media_value_func: "{listeners}*{interview_length}*{avg_rate}*{radio_week}"
+            media_value_func: "{followers}*{interview_length}*{avg_rate}*{radio_week}"
           },
           {
             name: "magazine_cover",
@@ -400,7 +400,7 @@ Enter the post's likes, comments &amp; shares to estimate the media value.
             url: "",
             metrics: [
               {
-                name: "circulation",
+                name: "followers",
                 label: "Circulation"
               },
               {
@@ -416,7 +416,7 @@ Enter the post's likes, comments &amp; shares to estimate the media value.
                 label: "Transactions"
               }
             ],
-            media_value_func: "{cover_rate}/({store_dist}*{transactions}+{circulation})*{circulation}"
+            media_value_func: "{cover_rate}/({store_dist}*{transactions}+{followers})*{followers}"
           },
           {
             name: "magazine_interview",
@@ -424,7 +424,7 @@ Enter the post's likes, comments &amp; shares to estimate the media value.
             url: "",
             metrics: [
               {
-                name: "circulation",
+                name: "followers",
                 label: "Circulation"
               },
               {
@@ -440,7 +440,7 @@ Enter the post's likes, comments &amp; shares to estimate the media value.
                 label: "Rate Per Page",
               }
             ],
-            media_value_func: "{circulation}*{pages}*{readers}*{rate_page}"
+            media_value_func: "{followers}*{pages}*{readers}*{rate_page}"
           },
           {
             name: "product_placement",
@@ -448,7 +448,7 @@ Enter the post's likes, comments &amp; shares to estimate the media value.
             url: "",
             metrics: [
               {
-                name: "views",
+                name: "followers",
                 label: "Viewers"
               },
               {
@@ -460,7 +460,7 @@ Enter the post's likes, comments &amp; shares to estimate the media value.
                 label: "Placement Rate"
               }
             ],
-            media_value_func: "{views}*{placement_seconds}*{placement_rate}"
+            media_value_func: "{followers}*{placement_seconds}*{placement_rate}"
           }
         ]
       };
