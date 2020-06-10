@@ -1,6 +1,7 @@
 body {
     font-family: arial;
-        background-color: #e4e4e4;
+    background-color: #e4e4e4;
+    margin: 0px;
 }
 
 tbody {
@@ -10,12 +11,16 @@ tbody {
 
 .logo-container {
     margin: 0 auto;
-    max-width: 1300px;
-padding: 60px 30px 40px 30px;
+    width: 100%;
+    padding: 15px;
+    background-color: #2e2d33;
+    position: fixed;
+    top: 0px;
+    max-height: 75px;
 }
 
 .logo {
-    max-width: 400px;
+    max-width: 375px;
 }
 
 .container {
@@ -24,7 +29,8 @@ padding: 60px 30px 40px 30px;
     max-width: 1200px;
     background-color: white;
     padding: 20px 50px 90px 50px;
-    box-shadow: 0px 1px 20px 0px #d0d0d0;
+    box-shadow: 0px 10px 20px 0px #d0d0d0;
+    margin-top: 105px;
 }
 
 .button {
@@ -317,5 +323,6 @@ input.campaign__loader-input {
     display: block;
 }
 */
+
 
 
