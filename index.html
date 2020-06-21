@@ -572,7 +572,6 @@ Enter the post's likes, comments &amp; shares to estimate the media value.
         }
         for (let i = 0; i < queries.length; i++) {
           let q = queries[i]();
-          console.log(q.name)
           let result_element = document.querySelector(`.results__channel-${q.name}`);
           result_element.innerHTML = q.value;
         }
@@ -634,7 +633,7 @@ Enter the post's likes, comments &amp; shares to estimate the media value.
 
         // Second Chart
         chart_title = 'Total reach, by Channel';
-        chart_type = 'horizontalBar';
+        chart_type = 'doughnut';
         chart_canvas = document.getElementById('canvas_horizontal');
         chart_data = {
           labels: [],
@@ -651,7 +650,7 @@ Enter the post's likes, comments &amp; shares to estimate the media value.
           chart_data.values.push(result_value);
         }
 
-        charts_manager.add_chart(chart_title, chart_type, chart_canvas, chart_data);
+        charts_manager.add_pie(chart_title, chart_type, chart_canvas, chart_data);
       }
 
 

@@ -32,7 +32,7 @@ ChartsManager.prototype.add_chart = function (title, bar_type, canvas, chart_dat
       showDatapoints: true,
       responsive: true,
       legend: {
-        position: 'top',
+        display : false
       },
       scales: {
         // make the Y axes to use money format
@@ -57,13 +57,56 @@ ChartsManager.prototype.add_chart = function (title, bar_type, canvas, chart_dat
   }));
 }
 
+ChartsManager.prototype.add_pie = function (title, bar_type, canvas, chart_data) {
+  var barChartData = {
+    labels: chart_data.labels,
+    datasets: [{
+      backgroundColor: (a) => {
+        return colors[a.dataIndex]
+      },
+      borderColor: "#222222",
+      borderWidth: 2,
+      data: chart_data.values,
+      money_format: chart_data.money_format
+    }]
+  };
+  let ctx_bar = canvas.getContext('2d');
+
+  this.charts.push(new Chart(ctx_bar, {
+    type: bar_type,
+    data: barChartData,
+    options: {
+      showDatapoints: true,
+      responsive: true,
+      legend: {
+        position: 'top',
+        display : true,
+        labels: {
+          //this function filters out channels that are not being used in the app from the legend
+          filter: function(legendItem, data) {
+            return data.datasets[0].data[legendItem.index] !== 0 
+          }
+        }
+      },
+      title: {
+        display: true,
+        fontSize: 30,
+        text: title
+      }
+    }
+  }));
+}
+
+
+
 ChartsManager.prototype.load_library = function () {
-  Chart.defaults.global.legend.display = false;
+  //legend display is now handled on the chart type
 
   //add label above of the bar
   Chart.plugins.register({
     afterDraw: function (chartInstance) {
-      if (chartInstance.config.options.showDatapoints) {
+      if (chartInstance.config.options.showDatapoints && 
+        (chartInstance.config.type === 'bar' || chartInstance.config.type === 'horizontalBar')) {
         var helpers = Chart.helpers;
         var ctx = chartInstance.chart.ctx;
         var fontColor = helpers.getValueOrDefault(chartInstance.config.options.showDatapoints.fontColor, chartInstance.config.options.defaultFontColor);
