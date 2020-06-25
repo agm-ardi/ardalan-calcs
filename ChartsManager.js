@@ -76,6 +76,49 @@ ChartsManager.prototype.add_pie = function (title, bar_type, canvas, chart_data)
     type: bar_type,
     data: barChartData,
     options: {
+
+    events: false,
+    tooltips: {
+        //enabled: false
+    },
+    hover: {
+        //animationDuration: 0
+    },
+    animation: {
+        duration: 1,
+        // this logic here takes care of having the labels always visible
+        onComplete: function () {
+          let chartInstance = this.chart,
+          ctx = chartInstance.ctx;
+          ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'bottom';
+          ctx.fillStyle = "#000";
+          ctx.strokeStyle = "#454545";
+
+          this.data.datasets.forEach(function (dataset, i) {
+
+            let meta = chartInstance.controller.getDatasetMeta(i);
+            meta.data.forEach(function (bar, index) {
+              if (dataset.data[index] === 0) return;
+
+              let data = dataset.data[index];
+              //middle between inner and outer radious
+              let _x = (bar._model.innerRadius + bar._model.outerRadius) * 0.35
+              let _y = (bar._model.innerRadius + bar._model.outerRadius) * 0.35
+              // starts on -0.5 * PI
+              let _angle = (bar._model.endAngle - bar._model.startAngle) * 0.5 + bar._model.startAngle - 0.25 * Math.PI;
+              let _cos = Math.cos(_angle);
+              let _sin = Math.sin(_angle);
+              let _x2 = bar._model.x + _x * _cos - _y * _sin;
+              let _y2 = bar._model.y + 5 + _x * _sin + _y * _cos;
+              ctx.fillText(bar._model.label + ' : ' + data, _x2, _y2);
+              ctx.strokeText(bar._model.label + ' : ' + data, _x2, _y2);
+            });
+          });
+        }
+    },
+
       showDatapoints: true,
       responsive: true,
       legend: {
