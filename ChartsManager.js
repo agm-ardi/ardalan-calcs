@@ -29,6 +29,18 @@ ChartsManager.prototype.add_chart = function (title, bar_type, canvas, chart_dat
     type: bar_type,
     data: barChartData,
     options: {
+
+      tooltips: {
+        callbacks: {
+          label: function(tooltipItem, data) {
+
+            var label = tooltipItem.yLabel;
+            let text = chart_data.money_format ? Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(label) : label;
+            return text;
+          }
+        }
+      },
+
       showDatapoints: true,
       responsive: true,
       legend: {
