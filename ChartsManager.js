@@ -100,12 +100,11 @@ ChartsManager.prototype.add_pie = function (title, bar_type, canvas, chart_data)
         duration: 1,
         // this logic here takes care of having the labels always visible
         onComplete: function () {
-          let chartInstance = this.chart,
-          ctx = chartInstance.ctx;
+          let chartInstance = this.chart;
+          let ctx = chartInstance.ctx;
           ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
           ctx.textAlign = 'center';
           ctx.textBaseline = 'bottom';
-          ctx.fillStyle = "#000";
           ctx.strokeStyle = "#454545";
 
           this.data.datasets.forEach(function (dataset, i) {
@@ -124,8 +123,46 @@ ChartsManager.prototype.add_pie = function (title, bar_type, canvas, chart_data)
               let _sin = Math.sin(_angle);
               let _x2 = bar._model.x + _x * _cos - _y * _sin;
               let _y2 = bar._model.y + 5 + _x * _sin + _y * _cos;
+
+              let  __textHeight = null
+              let getFontHeight = (fontStyle = "Arial") => {
+
+                if(__textHeight == null)
+                {
+                  var body = document.getElementsByTagName('body')[0];
+                  var dummy = document.createElement('div');
+                  var dummyText = document.createTextNode('MÉqgOLAKTAL');
+                  dummy.appendChild(dummyText);
+                  dummy.setAttribute('style', `font:${ fontStyle };position:absolute;top:0;left:0`);
+                  body.appendChild(dummy);
+                  __textHeight = dummy.offsetHeight;
+                  body.removeChild(dummy);
+                }
+                return __textHeight;
+              }
+
+              let get_text_size = (text) => {
+                let size = {x : 0, y : 0};
+                ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+                size.x = Math.ceil(ctx.measureText(text).width);
+                size.y = Math.ceil(getFontHeight(ctx.font));
+                return size;
+              }
+
+              let size = get_text_size(bar._model.label + ' : ' + data)
+              size.x += 6
+              size.y += 5
+
+              ctx.fillStyle = "#ddd";
+              ctx.globalAlpha = 0.8;
+              ctx.fillRect(_x2 - size.x * 0.5, _y2 - size.y + 3, size.x, size.y);
+
+              ctx.fillStyle = "#000";
+              ctx.globalAlpha = 1;
+
               ctx.fillText(bar._model.label + ' : ' + data, _x2, _y2);
               ctx.strokeText(bar._model.label + ' : ' + data, _x2, _y2);
+
             });
           });
         }
