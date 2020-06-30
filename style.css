@@ -191,17 +191,29 @@ input.channel__metric-input {
 
 
 .row.results__body > .results__media-container:nth-child(16) {
-    display: block;
+    display: inline-block;
     padding: 20px 15px;
     background-color: #848484;
-    width: 92%;
+    width: 48%;
     color: white;
     font-size: 110%;
 }
 
-.row.results__body > .results__media-container:nth-child(16) .results__media-value {font-size: 40px;}
+.row.results__body > .results__media-container:nth-child(17) {
+    width: 40%;
+    background-color: #848484;
+    color: white;
+    font-size: 110%;
+    padding: 20px 15px;
+}
 
-.row.results__body > .results__media-container:nth-child(16) .results__media-title {font-size: 15px;}
+.row.results__body > .results__media-container:nth-child(16) .results__media-value, .row.results__body > .results__media-container:nth-child(17) .results__media-value {
+    font-size: 40px;
+}
+
+.row.results__body > .results__media-container:nth-child(16) .results__media-title, .row.results__body > .results__media-container:nth-child(17) .results__media-title {
+    font-size: 15px;
+}
 
 tr.channel__row > td:nth-child(3) {
     font-weight: bold;
