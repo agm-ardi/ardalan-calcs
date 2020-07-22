@@ -4,25 +4,25 @@
     <meta charset="utf-8">
     <title>AGM - Media Value Calculator</title>
 
-    <link rel="stylesheet" media="screen" href="style.css" />
-    <link rel="stylesheet" media="print" href="print.css" />
+    <link rel="stylesheet" media="screen" href="assets/css/style.css" />
+    <link rel="stylesheet" media="print" href="assets/css/print.css" />
     <link rel="stylesheet" href="libs/chart.css" />
 
 
-    <script src="./libs/Chart.min.js"></script>
+    <script src="libs/Chart.min.js"></script>
   </head>
 
   <body>
-    <script src="Channel.js"></script>
-    <script src="ChannelTemplateManager.js"></script>
-    <script src="ChannelManager.js"></script>
-    <script src="ChartsManager.js"></script>
-    <script src="Table.js"></script>
+    <script src="js/Channel.js"></script>
+    <script src="js/ChannelTemplateManager.js"></script>
+    <script src="js/ChannelManager.js"></script>
+    <script src="js/ChartsManager.js"></script>
+    <script src="js/Table.js"></script>
     <script src="queries.js"></script>
 
 <div class="logo-container">
-<img class="printlogo" src="agm.png">  
-<img class="logo" src="logo-white.png">
+<img class="printlogo" src="assets/images/agm.png">  
+<img class="logo" src="assets/images/logo-white.png">
 </div>
 <div class="container">
 <div class="header">
@@ -96,10 +96,29 @@ Enter the post's likes, comments &amp; shares to estimate the media value.
               <div class="column results__total-title">Total Media Value:</div>
               <div class="column results__total-value results__channel-total_media_value">0</div>
             </div>
-
             <div class="row results__body">
               <div class="column results__total-title by-channel">By channel:</div>
             </div>
+
+            <div class="row results__return-on-investment-container">
+              <div class="column">
+
+                <div class="row">
+                  <div class="results__return-on-investment-title">Return on investment</div>
+                  <div class="results__return-on-investment-value">Cost:</div>
+                  <input class="results__return-on-investment-input" type="number" placeholder="total cost($)" onchange="on_roi_input_changed(this)">
+
+                </div>
+                <div class="row results__return-on-investment-result-row">
+                  <div class="results__return-on-investment-title">Result:</div>
+                  <div class="results__return-on-investment-result-value">5000</div>
+                </div>
+
+
+              </div>
+
+            </div>
+
           </div>
         </div>
       </div>
@@ -113,7 +132,6 @@ Enter the post's likes, comments &amp; shares to estimate the media value.
 </div>
 
     <script>
-
       let colors = [
         "#e68231",//"Articles / Blogs",
         "#3175b5",//"Facebook",
@@ -547,7 +565,25 @@ Enter the post's likes, comments &amp; shares to estimate the media value.
         media_value_element.innerHTML = Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(media_value);
 
         update_results();
+      }
 
+      function on_roi_input_changed(input)
+      {
+        let total_cost = input.value;
+        if(total_cost <= 0) 
+          return;
+
+        let channels = channel_manager.channels;
+
+        let total_media_value = 0;
+        for (let i = 0; i < channels.length; i++) {
+          total_media_value += channels[i].compute_media_value();
+        }
+
+        let roi = (total_media_value - total_cost)/total_cost;
+
+        let roi_result_elem = document.querySelector(".results__return-on-investment-result-value");
+        roi_result_elem.innerHTML = Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(roi);
 
       }
       function on_channel_url_changed(input)
