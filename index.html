@@ -580,7 +580,7 @@ Enter the post's likes, comments &amp; shares to estimate the media value.
           total_media_value += channels[i].compute_media_value();
         }
 
-        let roi = (total_media_value - total_cost)/total_cost;
+        let roi = ((total_media_value - total_cost)/total_cost)*100;
 
         let roi_result_elem = document.querySelector(".results__return-on-investment-result-value");
         //roi_result_elem.innerHTML = Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(roi);
