@@ -253,3 +253,63 @@ body > div.container > div.container-table > table > tbody > tr > td:nth-child(2
     margin: 0 auto;
     padding-top: 20px;
 }
+
+
+.results__return-on-investment-result-row {
+    display: block;
+    color: #343434;
+}
+
+.results__return-on-investment-container {
+            background-color: transparent;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .results__return-on-investment-container br {display: none;}
+
+        .results__return-on-investment-title {
+               font-size: 16px;
+               margin: 0px 0px 10px 0px;
+        }
+
+        .results__return-on-investment-value {
+                font-weight: normal;
+                text-align: left;
+                font-size: 20px;
+                float: left;
+        }
+        .results__return-on-investment-result-value {
+                font-size: 35px;
+                font-weight: bold;
+                text-align: left;
+                padding-right: 15px;
+        }
+        .results__return-on-investment-input {
+                font-size: 18px;
+                text-align: left;
+                margin-right: 20px;
+                border-radius: 0px;
+                padding: 10px 10px;
+                border: 2px solid #838383;
+                background-color: #f6f6f6;
+                width: 100%;
+                max-width: 300px;
+                color: #E91E63;
+                display: none;
+        }
+
+
+        .results__return-on-investment-input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+          color: #3f6c96;
+          opacity: 1; /* Firefox */
+        }
+
+        .results__return-on-investment-input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+          color: #3f6c96;
+        }
+
+        .results__return-on-investment-input::-ms-input-placeholder { /* Microsoft Edge */
+          color: #3f6c96;
+        }
+
