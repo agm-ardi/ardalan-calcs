@@ -161,12 +161,14 @@ input.channel__metric-input {
         background-color: rgba(62, 108, 151, 1);
         align-items: center;
         padding: 20px 0px;
+        width: 100%;
+        float: left;
     }
 
         .results__total-title {
                font-size: 30px;
-                margin: 20px;
-                width: 30%;
+               margin: 20px;
+               width: 50%;
         }
 
         .results__total-value {
@@ -177,21 +179,21 @@ input.channel__metric-input {
         }
 
         .results__return-on-investment-container {
-            background-color: rgba(62, 108, 151, 1);
+            background-color: #3f6c96;
             align-items: center;
-            padding: 20px 0px;
+            padding: 30px 20px;
         }
 
         .results__return-on-investment-title {
-               font-size: 30px;
-                margin: 20px;
+               font-size: 26px;
+               margin: 20px 0px 10px 0px;
         }
 
         .results__return-on-investment-value {
-                font-size: 45px;
-                font-weight: bold;
+                font-weight: normal;
                 text-align: left;
-                padding-right: 15px;
+                font-size: 20px;
+                float: left;
         }
         .results__return-on-investment-result-value {
                 font-size: 45px;
@@ -200,15 +202,39 @@ input.channel__metric-input {
                 padding-right: 15px;
         }
         .results__return-on-investment-input {
-                font-size: 45px;
-                font-weight: bold;
+                font-size: 14px;
                 text-align: left;
-                padding-left: 15px;
                 margin-right: 20px;
+                border-radius: 0px;
+                padding: 8px;
+                border: 1px solid #838383;
+                background-color: #ffffff;
+                width: 200px;
+                color: #E91E63;
         }
+
+
+        .results__return-on-investment-input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+          color: #3f6c96;
+          opacity: 1; /* Firefox */
+        }
+
+        .results__return-on-investment-input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+          color: #3f6c96;
+        }
+
+        .results__return-on-investment-input::-ms-input-placeholder { /* Microsoft Edge */
+          color: #3f6c96;
+        }
+
+
+
         .results__return-on-investment-result-row{
           justify-content: flex-start;
           align-items: center;
+          display: inline-block;
+          width: 60%;
+          float: left;
         }
 
 
