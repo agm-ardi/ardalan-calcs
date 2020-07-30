@@ -8,6 +8,16 @@
     <link rel="stylesheet" media="print" href="assets/css/print.css" />
     <link rel="stylesheet" href="libs/chart.css" />
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-52973146-10"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-52973146-10');
+    </script>
+
 
     <script src="libs/Chart.min.js"></script>
   </head>
@@ -64,6 +74,11 @@ Enter the post's likes, comments &amp; shares to estimate the media value.
 
 <hr>
 
+<div class="roi-row">
+<h3 style="margin: 10px;font-size: 14px !important;font-weight: 600;min-width: 130px;float:left;">Campaign Spend:</h3>
+<input class="results__return-on-investment-input" type="number" placeholder="$" onchange="on_roi_input_changed(this)"><br>
+</div>
+
     <div class="grid results">
       <div class="column">
         <div class="row">
@@ -95,28 +110,13 @@ Enter the post's likes, comments &amp; shares to estimate the media value.
             <div class="row results__total-container">
               <div class="column results__total-title">Total Media Value:</div>
               <div class="column results__total-value results__channel-total_media_value">0</div>
+              <div class="row results__return-on-investment-result-row">
+                  <div class="results__return-on-investment-title">Total ROI (return on investment)</div>
+                  <div class="results__return-on-investment-result-value">0.00%</div>
+              </div>
             </div>
             <div class="row results__body">
               <div class="column results__total-title by-channel">By channel:</div>
-            </div>
-
-            <div class="row results__return-on-investment-container">
-              <div class="column">
-
-                <div class="row">
-                  <div class="results__return-on-investment-title">Return on investment</div>
-                  <div class="results__return-on-investment-value">Cost:</div>
-                  <input class="results__return-on-investment-input" type="number" placeholder="total cost($)" onchange="on_roi_input_changed(this)">
-
-                </div>
-                <div class="row results__return-on-investment-result-row">
-                  <div class="results__return-on-investment-title">Result:</div>
-                  <div class="results__return-on-investment-result-value">5000</div>
-                </div>
-
-
-              </div>
-
             </div>
 
           </div>
