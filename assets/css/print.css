@@ -3,6 +3,13 @@ body {
     background-color: #fff;
 }
 
+.container-table {
+    display: none !important;
+}
+
+.results__return-on-investment-result-row {color: white;}
+.results__return-on-investment-result-row > div {color: white;}
+
 
 .logo-container {
     margin: 0 auto;
