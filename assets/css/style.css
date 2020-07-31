@@ -136,9 +136,8 @@ input.channel__metric-input {
 }
 
 .row {
-    display: flex;
+    display: block;
     justify-content: space-between;
-
 }
 
 
@@ -163,6 +162,7 @@ input.channel__metric-input {
         padding: 20px 0px;
         width: 100%;
         float: left;
+        display: inline-flex;
     }
 
         .results__total-title {
@@ -185,8 +185,9 @@ input.channel__metric-input {
         }
 
         .results__return-on-investment-title {
-               font-size: 26px;
-               margin: 20px 0px 10px 0px;
+               font-size: 18px;
+               margin: 0px 0px 10px 0px;
+               opacity: .8;
         }
 
         .results__return-on-investment-value {
